@@ -27,7 +27,7 @@ const is_user_logged_in = () => {
 const get_client_token = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:3000/get_client_token", {
+      const response = await fetch("http://localhost:3001/get_client_token", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ "customer_id": current_customer_id }),
       });
@@ -49,7 +49,7 @@ let handle_click = (event) => {
 }
 document.addEventListener("click", handle_click);
 const paypal_sdk_url = "https://www.paypal.com/sdk/js";
-const client_id = "REPLACE_WITH_YOUR_CLIENT_ID";
+const client_id = "AZmHKp_3DOsYNwMifWL2mDO4hYfAHXhwtzs6qxy-qUSaKE_oIIL6X4XP92NXvoorGrolPXD3PiUEcDVF";
 const currency = "USD";
 const intent = "capture";
 
@@ -94,7 +94,7 @@ is_user_logged_in()
         },
 
         createOrder: function(data, actions) { //https://developer.paypal.com/docs/api/orders/v2/#orders_create
-            return fetch("http://localhost:3000/create_order", {
+            return fetch("http://localhost:3001/create_order", {
                 method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
                 body: JSON.stringify({ "intent": intent })
             })
@@ -105,7 +105,7 @@ is_user_logged_in()
         onApprove: function(data, actions) {
             order_id = data.orderID;
             console.log(data);
-            return fetch("http://localhost:3000/complete_order", {
+            return fetch("http://localhost:3001/complete_order", {
                 method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
                 body: JSON.stringify({
                     "intent": intent,
@@ -137,7 +137,7 @@ is_user_logged_in()
         paypal_hosted_fields = paypal.HostedFields.render({
           // Call your server to set up the transaction
           createOrder: () => {
-            return fetch("http://localhost:3000/create_order", {
+            return fetch("http://localhost:3001/create_order", {
                 method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
                 body: JSON.stringify({ "intent": intent })
             })
@@ -203,7 +203,7 @@ is_user_logged_in()
                 //Customer Data END
               )
               .then(() => {
-                return fetch("http://localhost:3000/complete_order", {
+                return fetch("http://localhost:3001/complete_order", {
                     method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
                     body: JSON.stringify({
                         "intent": intent,
